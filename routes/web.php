@@ -19,6 +19,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('code','LoginController@code');
     Route::get('getcode','LoginController@getcode');
     Route::get('index','IndexController@index');
+    Route::get('crypt','LoginController@crypt');
 });
 
 //Route::get('user/profile', 'UserController@showProfile')->name('profile');
