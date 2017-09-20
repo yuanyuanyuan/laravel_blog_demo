@@ -12,7 +12,8 @@ class Category extends Model
     // 数据相关的逻辑放到数据model里面,是为了更加逻辑化
     public function tree()
     {
-        $categorys = $this->all();
+        // 将分类查询进行orderby排序后,再进行过滤
+        $categorys = $this->orderBy('cate_order','asc')->get();
         return $this->getTree($categorys,'cate_name','cate_id','cate_pid');
     }
 
@@ -46,9 +47,11 @@ class Category extends Model
 //    public function getTree($data){
 //        $arr = [];
 //        foreach ($data as $k => $v){
+//            先判断pid,先放进去返回数组
 //            if($v->cate_pid ==0){
 //                $arr[]=$data[$k];
 //                foreach ($data as $m=>$n){
+//                    再判断pid等于id的会放在一起
 //                    if($n->cate_pid == $v->cate_id){
 //                        $arr[]=$data[$m];
 //                    }
