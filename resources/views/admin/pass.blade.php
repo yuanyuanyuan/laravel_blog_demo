@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="style/css/ch-ui.admin.css">
-	<link rel="stylesheet" href="style/font/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style/css/ch-ui.admin.css">
+    <link rel="stylesheet" href="style/font/css/font-awesome.min.css">
     <script type="text/javascript" src="style/js/jquery.js"></script>
     <script type="text/javascript" src="style/js/ch-ui.admin.js"></script>
 </head>
 <body>
-    <!--面包屑导航 开始-->
+<!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
     <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; 修改密码
@@ -24,8 +24,17 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="result_wrap">
-    <form method="post" onsubmit="return changePass()">
-        <input type="hidden" name="_token" value="X25wGVjFqDXvq7vAUAJTjTAHfX0RhkGufucRdzGh">
+    <form method="post" action="">
+        {{csrf_field()}}
+
+        @if(is_object($errors))
+            @foreach($errors->all() as $error)
+                {{$error}}
+            @endforeach
+        @else
+            {{$errors}}
+        @endif
+
         <table class="add_tab">
             <tbody>
             <tr>
@@ -43,7 +52,7 @@
             <tr>
                 <th><i class="require">*</i>确认密码：</th>
                 <td>
-                    <input type="password" name="password_c"> </i>再次输入密码</span>
+                    <input type="password" name="password_confirmation"> </i>再次输入密码</span>
                 </td>
             </tr>
             <tr>

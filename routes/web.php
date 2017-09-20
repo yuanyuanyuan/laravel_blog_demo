@@ -14,15 +14,19 @@
 Route::get('/test', ['as'=>'profile','uses'=>'IndexController@index']);
 
 
+Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['admin.login']],function(){
+    Route::get('index','IndexController@index');
+    Route::any('pass','IndexController@pass');
+    Route::resource('category', 'CategoryController');
+});
+
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::any('login','LoginController@login');
     Route::get('code','LoginController@code');
-    Route::get('getcode','LoginController@getcode');
-    Route::get('index','IndexController@index');
-    Route::get('crypt','LoginController@crypt');
+    Route::get('logout','LoginController@logout');
 });
 
-//Route::get('user/profile', 'UserController@showProfile')->name('profile');
+
 
 Route::get('/', function () {
     return view('welcome');
