@@ -17,9 +17,7 @@ class IndexController extends CommonController
 
     public function index()
     {
-//        $pdo =DB::connection()->getPdo();
-//        dd($pdo);
-        return '主页';
+        return view('admin.index');
     }
 
     public function pass()
