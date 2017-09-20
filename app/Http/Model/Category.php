@@ -7,6 +7,8 @@ class Category extends Model
 {
     protected $table='category';
     protected $primaryKey='cate_id';
+    // 注意fillable和guarded的区别,前者是只允许那些值可以使用create方法保存数据库,后者是只排除
+    protected $guarded = []; // 这里是排除了空,就是代表排除所有
     public $timestamps=false;
 
     // 数据相关的逻辑放到数据model里面,是为了更加逻辑化
