@@ -13,12 +13,15 @@
 //Route::group([])
 Route::get('/test', ['as'=>'profile','uses'=>'IndexController@index']);
 
-
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['admin.login']],function(){
     Route::get('index','IndexController@index');
     Route::any('pass','IndexController@pass');
     Route::resource('category', 'CategoryController');
     Route::post('cate/changeorder','CategoryController@changeOrder');
+    Route::resource('article', 'ArticleController');
+    // 图片上传的路由
+    Route::any('upload', 'CommonController@upload');
+
 });
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
@@ -27,8 +30,3 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('logout','LoginController@logout');
 });
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
