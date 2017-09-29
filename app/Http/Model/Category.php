@@ -1,32 +1,26 @@
 <?php
 
 namespace App\Http\Model;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
     protected $table='category';
     protected $primaryKey='cate_id';
-    // 注意fillable和guarded的区别,前者是只允许那些值可以使用create方法保存数据库,后者是只排除
-    protected $guarded = []; // 这里是排除了空,就是代表排除所有
+    // 不使用时间戳
     public $timestamps=false;
+    // 使用 guarded 属性设置为空，不限制保存的字段格式，使用 create方法保存数据
+    protected $guarded=[];
 
-    // 数据相关的逻辑放到数据model里面,是为了更加逻辑化
+    // true 方法其实是调用 getTree 方法
     public function tree()
     {
-        // 将分类查询进行orderby排序后,再进行过滤
         $categorys = $this->orderBy('cate_order','asc')->get();
         return $this->getTree($categorys,'cate_name','cate_id','cate_pid');
     }
 
-//    public static function tree()
-//    {
-//        $categorys = Category::all();
-//        return (new Category)->getTree($categorys,'cate_name','cate_id','cate_pid');
-//    }
-
-    // 将函数进行参数化,方便移植
-    // 不过参数化之后会比较难看,需要做一定的注释
+    // getTree 是为了重新整理 category 的结构，使之成为树结构排列
     public function getTree($data,$field_name,$field_id='id',$field_pid='pid',$pid=0)
     {
         $arr = array();
@@ -42,9 +36,11 @@ class Category extends Model
                 }
             }
         }
+
         return $arr;
     }
 
+    //参数化之后不好看，所以还原参数化之前的
     // gerTree的原版提供参考
 //    public function getTree($data){
 //        $arr = [];

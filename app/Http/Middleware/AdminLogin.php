@@ -18,6 +18,7 @@ class AdminLogin
         if(!session('user')){
             return redirect('admin/login');
         }
+
         return $next($request);
     }
 }

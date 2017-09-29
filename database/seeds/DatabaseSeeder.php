@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // 通过调用 seed class 来进行插入数据
+         $this->call(LinksTableSeeder::class);
     }
 }

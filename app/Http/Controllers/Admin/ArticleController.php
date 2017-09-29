@@ -30,7 +30,6 @@ class ArticleController extends CommonController
     public function store()
     {
         $input = Input::except('_token');
-        // 时间要额外加上
         $input['art_time'] = time();
 
         $rules = [

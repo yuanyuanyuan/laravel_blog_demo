@@ -3,14 +3,14 @@
     <!--面包屑导航 开始-->
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 编辑文章分类
+        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 分类管理
     </div>
     <!--面包屑导航 结束-->
 
     <!--结果集标题与导航组件 开始-->
     <div class="result_wrap">
         <div class="result_title">
-            <h3>分类管理</h3>
+            <h3>编辑分类</h3>
             @if(count($errors)>0)
                 <div class="mark">
                     @if(is_object($errors))
@@ -34,7 +34,6 @@
 
     <div class="result_wrap">
         <form action="{{url('admin/category/'.$field->cate_id)}}" method="post">
-            {{--要使用put方法提交,需要这样写--}}
             <input type="hidden" name="_method" value="put">
             {{csrf_field()}}
             <table class="add_tab">
@@ -44,8 +43,9 @@
                     <td>
                         <select name="cate_pid">
                             <option value="0">==顶级分类==</option>
-                            {{--判断默认值--}}
                             @foreach($data as $d)
+                                {{--生成 select 输入组件--}}
+                                {{--只可以可以选择父分类,并且 edit 页面会自动设置--}}
                                 <option value="{{$d->cate_id}}"
                                         @if($d->cate_id==$field->cate_pid) selected @endif
                                 >{{$d->cate_name}}</option>
